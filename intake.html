@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Medication Request</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="intake-bg">
+
+<div class="overlay"></div>
+
+<div class="form-card">
+  <h2>Medication Request Form</h2>
+
+  <form id="patientForm">
+    <input type="text" name="fullname" placeholder="Full Name" required>
+    <input type="text" name="phone" placeholder="Phone Number" required>
+    <textarea name="address" placeholder="Delivery Address" required></textarea>
+    <input type="number" name="age" placeholder="Age" required>
+
+    <select name="service">
+      <option>Standard Delivery</option>
+      <option>Emergency Delivery</option>
+    </select>
+
+    <textarea name="symptoms" placeholder="Describe Symptoms" required></textarea>
+    <input type="text" name="allergies" placeholder="Drug Allergies">
+    <input type="text" name="currentmeds" placeholder="Current Medications">
+<hr>
+
+<h3>Additional Requests</h3>
+
+<label for="prescription_file">Upload Prescription (Optional)</label><br>
+<input type="file" id="prescription_file" name="prescription_file" accept=".jpg,.jpeg,.png,.pdf"><br><br>
+
+<label>
+  <input type="checkbox" name="request_callback" value="true">
+  Request Pharmacist Callback
+</label>
+
+<label>
+  <input type="checkbox" name="doctor_referral" value="true">
+  Request Medical Doctor Review
+</label>
+
+    <button type="submit" class="primary-btn">Submit Request</button>
+  </form>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script>
+const supabaseUrl = "https://mjoknzqvxexpuchdqwjm.supabase.co";
+const supabaseKey = "sb_publishable_eyvI6pGV3JDqsxeqlj34LA_Bna6Yt9Q";
+const supabaseClient = supabase.createClient(supabaseUrl, supabaseKey);
+
+document.getElementById("patientForm").addEventListener("submit", async (e) => {
+  e.preventDefault();
+
+  const formData = new FormData(e.target);
+  const data = Object.fromEntries(formData.entries());
+
+  const { error } = await supabaseClient
+    .from("requests")
+    .insert([data]);
+
+  if (!error) {
+    alert("Request Submitted Successfully");
+    e.target.reset();
+  } else {
+    alert("Submission failed");
+    console.log(error);
+  }
+});
+</script>
+
