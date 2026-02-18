@@ -42,11 +42,11 @@ input[type="file"] {
 
 /* Backgrounds */
 .home-bg {
-  background: url("../images/pharmacist.jpg") no-repeat center center/cover;
+  background: url("pharmacist.jpg") no-repeat center center/cover;
 }
 
 .intake-bg {
-  background: url("../images/medical-bg.jpg") no-repeat center center/cover;
+  background: url("medical-bg.jpg") no-repeat center center/cover;
 }
 
 /* Overlay for readability */
@@ -116,3 +116,4 @@ textarea {
   background: #0096c7;
   transform: scale(1.03);
 }
+
